@@ -1,5 +1,5 @@
 'use strict';
-var vscode = require('vscode');
+var vscode = require('./vscode-wrapper');
 var path = require('path');
 var fs = require('fs');
 var url = require('url');
@@ -35,7 +35,7 @@ function deactivate() {
 exports.deactivate = deactivate;
 
 function MarkdownPdf(option_type) {
-  
+
   try {
 
     // check active window
@@ -106,6 +106,7 @@ function MarkdownPdf(option_type) {
     showErrorMessage('MarkdownPdf()', error);
   }
 }
+exports.MarkdownPdf = MarkdownPdf;
 
 function MarkdownPdfOnSave() {
   try {
@@ -344,7 +345,7 @@ function exportPdf(data, filename, type, uri) {
       See https://github.com/yzane/vscode-markdown-pdf#install');
     return;
   }
-  
+
   var StatusbarMessageTimeout = vscode.workspace.getConfiguration('markdown-pdf')['StatusbarMessageTimeout'];
   vscode.window.setStatusBarMessage('');
   var exportFilename = getOutputDir(filename, uri);

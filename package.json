@@ -34,6 +34,9 @@
     "onLanguage:markdown"
   ],
   "main": "./extension",
+  "bin": {
+    "markdown-pdf": "bin/markdown-pdf"
+  },
   "contributes": {
     "commands": [
       {
@@ -450,13 +453,13 @@
     "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "devDependencies": {
-    "removeNPMAbsolutePaths": "^1.0.4",
-    "vscode": "^1.1.17"
+    "removeNPMAbsolutePaths": "^1.0.4"
   },
   "dependencies": {
     "cheerio": "^0.20.0",
     "emoji-images": "^0.1.1",
     "highlight.js": "^9.12.0",
+    "js-yaml": "^3.13.1",
     "markdown-it": "^8.4.1",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-container": "^2.0.0",
