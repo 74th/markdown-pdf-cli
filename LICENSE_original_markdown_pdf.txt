@@ -1,6 +1,6 @@
-Copyright (c) 74th
+Copyright (c) yzane
 
-All rights reserved.
+All rights reserved. 
 
 MIT License
 
