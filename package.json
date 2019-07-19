@@ -27,9 +27,7 @@
   "bin": {
     "markdown-pdf": "bin/markdown-pdf"
   },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install"
-  },
+  "scripts": {},
   "devDependencies": {
     "removeNPMAbsolutePaths": "^1.0.4"
   },
