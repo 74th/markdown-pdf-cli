@@ -22,8 +22,15 @@ const vscodeProgressLocation = {
     Notification: null,
 }
 
-const log = () => {
+const log = (mes) => {
     console.log.apply(null, arguments);
+    return {
+        dispose: () => { },
+    };
+}
+
+const message = (mes) => {
+    console.log(mes);
     return {
         dispose: () => { },
     };
@@ -32,7 +39,7 @@ const log = () => {
 const vscodeWindow = {
     showWarningMessage: log,
     showErrorMessage: log,
-    setStatusBarMessage: log,
+    setStatusBarMessage: message,
     ProgressLocation: null,
     activeTextEditor: vscodeEditor,
     document: vscodeDocument,
@@ -46,6 +53,13 @@ const vscodeWorkspace = {
     _settings: {},
     getConfiguration: (_) => {
         return vscodeWorkspace._settings;
+    },
+    getWorkspaceFolder: () => {
+        return {
+            uri: {
+                fsPath: process.cwd(),
+            }
+        }
     },
 }
 
@@ -66,8 +80,11 @@ function setFilename(fileName) {
 }
 
 const vscodeUri = {
+    parse: (arg) => {
+        return arg;
+    },
     file: (arg) => {
-        return "file://" + path.join(process.cwd(), arg);
+        return "file://" + arg;
     },
 };
 
