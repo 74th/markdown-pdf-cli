@@ -84,7 +84,7 @@ const vscodeUri = {
         return arg;
     },
     file: (arg) => {
-        return "file://" + arg;
+        return "file://" + path.resolve(arg);
     },
 };
 
