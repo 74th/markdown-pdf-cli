@@ -183,12 +183,7 @@ function convertMarkdownToHtml(filename, type, text) {
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     var token = tokens[idx];
     var href = token.attrs[token.attrIndex('src')][1];
-    // console.log("original href: " + href);
-    if (type === 'html') {
-      href = decodeURIComponent(href).replace(/("|')/g, '');
-    } else {
-      href = convertImgPath(href, filename);
-    }
+    href = convertImgPath(href, filename);
     // console.log("converted href: " + href);
     token.attrs[token.attrIndex('src')][1] = href;
     // // pass token to default renderer.
