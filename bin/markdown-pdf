@@ -9,7 +9,7 @@ const ext = require("../extension");
 const vscode = require("../vscode-wrapper");
 
 if (process.argv.length < 5) {
-    console.error("markdown-pdf pdf settings.yaml input.md");
+    console.error("markdown-pdf (pdf|html) settings.yaml input.md");
     process.exit(1);
 }
 
@@ -32,6 +32,7 @@ ext.activate(vscode.dummyContext);
 
 switch (target) {
     case "pdf":
+    case "html":
         ext.MarkdownPdf(target);
         break;
     default:
