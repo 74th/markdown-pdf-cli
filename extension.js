@@ -156,6 +156,7 @@ function convertMarkdownToHtml(filename, type, text) {
       var breaks = vscode.workspace.getConfiguration('markdown-pdf')['breaks'];
       var md = require('markdown-it')({
         html: true,
+        xhtmlOut: true,
         breaks: breaks,
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
@@ -183,7 +184,12 @@ function convertMarkdownToHtml(filename, type, text) {
   md.renderer.rules.image = function (tokens, idx, options, env, self) {
     var token = tokens[idx];
     var href = token.attrs[token.attrIndex('src')][1];
-    href = convertImgPath(href, filename);
+    // console.log("original href: " + href);
+    if (type === 'html') {
+      href = decodeURIComponent(href).replace(/("|')/g, '');
+    } else {
+      href = convertImgPath(href, filename);
+    }
     // console.log("converted href: " + href);
     token.attrs[token.attrIndex('src')][1] = href;
     // // pass token to default renderer.
@@ -655,7 +661,7 @@ function readStyles(uri) {
       if (styles && Array.isArray(styles) && styles.length > 0) {
         for (i = 0; i < styles.length; i++) {
           var href = fixHref(uri, styles[i]);
-          style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\">';
+          style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\" />';
         }
       }
     }
@@ -685,7 +691,7 @@ function readStyles(uri) {
     if (styles && Array.isArray(styles) && styles.length > 0) {
       for (i = 0; i < styles.length; i++) {
         var href = fixHref(uri, styles[i]);
-        style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\">';
+        style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\" />';
       }
     }
 
