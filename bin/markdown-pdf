@@ -30,13 +30,17 @@ vscode.setFilename(fileName);
 
 ext.activate(vscode.dummyContext);
 
-switch (target) {
-    case "pdf":
-    case "html":
-        ext.MarkdownPdf(target);
-        break;
-    default:
-        console.error("markdown-pdf pdf settings.yaml input.md");
-        process.exit(1);
-        break;
+async function main() {
+    switch (target) {
+        case "pdf":
+        case "html":
+            await ext.MarkdownPdf(target);
+            break;
+        default:
+            console.error("markdown-pdf pdf settings.yaml input.md");
+            process.exit(1);
+            break;
+    }
 }
+
+main()

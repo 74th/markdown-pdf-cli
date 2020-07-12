@@ -64,10 +64,7 @@ clip:
 omitBackground: false
 # Statusbar message timeout [milliseconds]
 StatusbarMessageTimeout: 10000
-
-
-
-
-
-
-
+"markdown-it-include":
+  enable: false
+env:
+  language: "ja"

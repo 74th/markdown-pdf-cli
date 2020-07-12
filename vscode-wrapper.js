@@ -39,6 +39,7 @@ const message = (mes) => {
 const vscodeWindow = {
     showWarningMessage: log,
     showErrorMessage: log,
+    showInformationMessage: log,
     setStatusBarMessage: message,
     ProgressLocation: null,
     activeTextEditor: vscodeEditor,
@@ -101,4 +102,7 @@ module.exports = {
     setSettings,
     setFilename,
     dummyContext,
+    get ["env"]() {
+        return vscodeWorkspace._settings["env"];
+    },
 }
