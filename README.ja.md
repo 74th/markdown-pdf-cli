@@ -2,10 +2,6 @@
 
 この拡張機能は Markdown ファイルを pdf、html、png、jpeg ファイルに変換します。
 
-## <font color="red"> 重要なお知らせ </font>
-* Markdown PDF ver1.0.0 では PDF変換を [node-html-pdf](https://github.com/marcbachmann/node-html-pdf)   (PhantomJS) から [puppeteer](https://github.com/GoogleChrome/puppeteer) (Chromium) に変更しました
-* 一部のオプションは廃止された為、変更してください。 [オプション](#options)を参照してください
-
 ## 目次
 <!-- TOC depthFrom:2 depthTo:2 updateOnSave:false -->
 
@@ -28,11 +24,13 @@
 
 以下の機能をサポートしています。
 * [Syntax highlighting](https://highlightjs.org/static/demo/)
-* [emoji](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
+* [emoji](https://www.webfx.com/tools/emoji-cheat-sheet/)
 * [markdown-it-checkbox](https://github.com/mcecot/markdown-it-checkbox)
 * [markdown-it-container](https://github.com/markdown-it/markdown-it-container)
-* [PlantUML](http://plantuml.com/)
+* [markdown-it-include](https://github.com/camelaissani/markdown-it-include)
+* [PlantUML](https://plantuml.com/)
   * [markdown-it-plantuml](https://github.com/gmunguia/markdown-it-plantuml)
+* [mermaid](https://mermaid-js.github.io/mermaid/)
 
 サンプルファイル
  * [pdf](sample/README.pdf)
@@ -70,10 +68,56 @@ OUTPUT
 
 ![PlantUML](images/PlantUML.png)
 
+### markdown-it-include
+
+Include markdown fragment files: `:[alternate-text](relative-path-to-file.md)`.
+
+```
+├── [plugins]
+│  └── README.md
+├── CHANGELOG.md
+└── README.md
+```
+
+INPUT
+```
+README Content
+
+:[Plugins](./plugins/README.md)
+
+:[Changelog](CHANGELOG.md)
+```
+
+OUTPUT
+```
+Content of README.md
+
+Content of plugins/README.md
+
+Content of CHANGELOG.md
+```
+
+### mermaid
+
+INPUT
+<pre>
+```mermaid
+stateDiagram
+    [*] --> First
+    state First {
+        [*] --> second
+        second --> [*]
+    }
+```
+</pre>
+
+OUTPUT
+
+![mermaid](images/mermaid.png)
 
 ## インストール
 
-Markdown PDF をインストールして、Visutal Studio Code で Markdownファイルを最初に開いた時、Chromium のダウンロードが自動で始まります。
+Markdown PDF をインストールして、Visual Studio Code で Markdownファイルを最初に開いた時、Chromium のダウンロードが自動で始まります。
 
 しかしサイズが大きい為 (~170Mb Mac, ~282Mb Linux, ~280Mb Win) 、環境によっては時間がかかります。
 ダウンロード中は、ステータスバーに `Installing Puppeteer` のメッセージが表示されます。
@@ -133,71 +177,48 @@ Markdown PDF をインストールして、Visutal Studio Code で Markdownフ�
 
 ## オプション
 
-* Markdown PDF ver1.0.0 では PDF変換を [node-html-pdf](https://github.com/marcbachmann/node-html-pdf) から [puppeteer](https://github.com/GoogleChrome/puppeteer) に変更しました
-* 一部のオプションは廃止された為、変更してください。 [Options](#options)
-* Markdown PDF ver1.0.0 の新オプションと、廃止されたオプションは以下になります
+### List
 
-|ver1.0.0 (新)|ver0.x.x (廃止)|
-|:---|:---|
-|`markdown-pdf.executablePath`||
-|`markdown-pdf.scale`||
-|`markdown-pdf.displayHeaderFooter`||
-|`markdown-pdf.headerTemplate`|`markdown-pdf.header.contents`|
-|`markdown-pdf.footerTemplate`|`markdown-pdf.footer.contents`|
-|`markdown-pdf.printBackground`||
-|`markdown-pdf.pageRanges`||
-|`markdown-pdf.width`||
-|`markdown-pdf.height`||
-|`markdown-pdf.margin.top`|`markdown-pdf.border.top`|
-||`markdown-pdf.header.height`|
-|`markdown-pdf.margin.bottom`|`markdown-pdf.border.bottom`|
-||`markdown-pdf.footer.height`|
-|`markdown-pdf.margin.right`|`markdown-pdf.border.right`|
-|`markdown-pdf.margin.left`|`markdown-pdf.border.left`|
-|`markdown-pdf.quality`||
-|`markdown-pdf.clip.x`||
-|`markdown-pdf.clip.y`||
-|`markdown-pdf.clip.width`||
-|`markdown-pdf.clip.height`||
-|`markdown-pdf.omitBackground`||
-
-### Option list
-
-|Category| Option name|
-|:---|:---|
-|[Save options](#save-options)|[markdown-pdf.type](#markdown-pdftype)|
-||[markdown-pdf.convertOnSave](#markdown-pdfconvertonsave)|
-||[markdown-pdf.convertOnSaveExclude](#markdown-pdfconvertonsaveexclude)|
-||[markdown-pdf.outputDirectory](#markdown-pdfoutputdirectory)|
-||[markdown-pdf.outputDirectoryRelativePathFile](#markdown-pdfoutputdirectoryrelativepathfile)|
-|[Styles options](#styles-options)|[markdown-pdf.styles](#markdown-pdfstyles)|
-||[markdown-pdf.stylesRelativePathFile](#markdown-pdfstylesrelativepathfile)|
-||[markdown-pdf.includeDefaultStyles](#markdown-pdfincludedefaultstyles)|
-|[Syntax highlight options](#syntax-highlight-options)|[markdown-pdf.highlight](#markdown-pdfhighlight)|
-||[markdown-pdf.highlightStyle](#markdown-pdfhighlightstyle)|
-|[Markdown options](#markdown-options)|[markdown-pdf.breaks](#markdown-pdfbreaks)|
-|[Emoji options](#emoji-options)|[markdown-pdf.emoji](#markdown-pdfemoji)|
-|[Configuration options](#configuration-options)|[markdown-pdf.executablePath](#markdown-pdfexecutablepath)|
-|[Common Options](#common-options)|[markdown-pdf.scale](#markdown-pdfscale)|
-|[PDF options](#pdf-options)|[markdown-pdf.displayHeaderFooter](#markdown-pdfdisplayheaderfooter)|
-||[markdown-pdf.headerTemplate](#markdown-pdfheadertemplate)|
-||[markdown-pdf.footerTemplate](#markdown-pdffootertemplate)|
-||[markdown-pdf.printBackground](#markdown-pdfprintbackground)|
-||[markdown-pdf.orientation](#markdown-pdforientation)|
-||[markdown-pdf.pageRanges](#markdown-pdfpageranges)|
-||[markdown-pdf.format](#markdown-pdfformat)|
-||[markdown-pdf.width](#markdown-pdfwidth)|
-||[markdown-pdf.height](#markdown-pdfheight)|
-||[markdown-pdf.margin.top](#markdown-pdfmargintop)|
-||[markdown-pdf.margin.bottom](#markdown-pdfmarginbottom)|
-||[markdown-pdf.margin.right](#markdown-pdfmarginright)|
-||[markdown-pdf.margin.left](#markdown-pdfmarginleft)|
-|[PNG JPEG options](#png-jpeg-options)|[markdown-pdf.quality](#markdown-pdfquality)|
-||[markdown-pdf.clip.x](#markdown-pdfclipx)|
-||[markdown-pdf.clip.y](#markdown-pdfclipy)|
-||[markdown-pdf.clip.width](#markdown-pdfclipwidth)|
-||[markdown-pdf.clip.height](#markdown-pdfclipheight)|
-||[markdown-pdf.omitBackground](#markdown-pdfomitbackground)|
+|Category|Option name|[Configuration scope](https://code.visualstudio.com/api/references/contribution-points#Configuration-property-schema)|
+|:---|:---|:---|
+|[Save options](#save-options)|[markdown-pdf.type](#markdown-pdftype)| |
+||[markdown-pdf.convertOnSave](#markdown-pdfconvertonsave)| |
+||[markdown-pdf.convertOnSaveExclude](#markdown-pdfconvertonsaveexclude)| |
+||[markdown-pdf.outputDirectory](#markdown-pdfoutputdirectory)| |
+||[markdown-pdf.outputDirectoryRelativePathFile](#markdown-pdfoutputdirectoryrelativepathfile)| |
+|[Styles options](#styles-options)|[markdown-pdf.styles](#markdown-pdfstyles)| |
+||[markdown-pdf.stylesRelativePathFile](#markdown-pdfstylesrelativepathfile)| |
+||[markdown-pdf.includeDefaultStyles](#markdown-pdfincludedefaultstyles)| |
+|[Syntax highlight options](#syntax-highlight-options)|[markdown-pdf.highlight](#markdown-pdfhighlight)| |
+||[markdown-pdf.highlightStyle](#markdown-pdfhighlightstyle)| |
+|[Markdown options](#markdown-options)|[markdown-pdf.breaks](#markdown-pdfbreaks)| |
+|[Emoji options](#emoji-options)|[markdown-pdf.emoji](#markdown-pdfemoji)| |
+|[Configuration options](#configuration-options)|[markdown-pdf.executablePath](#markdown-pdfexecutablepath)| |
+|[Common Options](#common-options)|[markdown-pdf.scale](#markdown-pdfscale)| |
+|[PDF options](#pdf-options)|[markdown-pdf.displayHeaderFooter](#markdown-pdfdisplayheaderfooter)|resource|
+||[markdown-pdf.headerTemplate](#markdown-pdfheadertemplate)|resource|
+||[markdown-pdf.footerTemplate](#markdown-pdffootertemplate)|resource|
+||[markdown-pdf.printBackground](#markdown-pdfprintbackground)|resource|
+||[markdown-pdf.orientation](#markdown-pdforientation)|resource|
+||[markdown-pdf.pageRanges](#markdown-pdfpageranges)|resource|
+||[markdown-pdf.format](#markdown-pdfformat)|resource|
+||[markdown-pdf.width](#markdown-pdfwidth)|resource|
+||[markdown-pdf.height](#markdown-pdfheight)|resource|
+||[markdown-pdf.margin.top](#markdown-pdfmargintop)|resource|
+||[markdown-pdf.margin.bottom](#markdown-pdfmarginbottom)|resource|
+||[markdown-pdf.margin.right](#markdown-pdfmarginright)|resource|
+||[markdown-pdf.margin.left](#markdown-pdfmarginleft)|resource|
+|[PNG JPEG options](#png-jpeg-options)|[markdown-pdf.quality](#markdown-pdfquality)| |
+||[markdown-pdf.clip.x](#markdown-pdfclipx)| |
+||[markdown-pdf.clip.y](#markdown-pdfclipy)| |
+||[markdown-pdf.clip.width](#markdown-pdfclipwidth)| |
+||[markdown-pdf.clip.height](#markdown-pdfclipheight)| |
+||[markdown-pdf.omitBackground](#markdown-pdfomitbackground)| |
+|[PlantUML options](#plantuml-options)|[markdown-pdf.plantumlOpenMarker](#markdown-pdfplantumlopenmarker)| |
+||[markdown-pdf.plantumlCloseMarker](#markdown-pdfplantumlclosemarker)| |
+||[markdown-pdf.plantumlServer](#markdown-pdfplantumlserver)| |
+|[markdown-it-include options](#markdown-it-include-options)|[markdown-pdf.markdown-it-include.enable](#markdown-pdfmarkdown-it-includeenable)| |
+|[mermaid options](#mermaid-options)|[markdown-pdf.mermaidServer](#markdown-pdfmermaidserver)| |
 
 ### Save options
 
@@ -473,6 +494,37 @@ Markdown PDF をインストールして、Visutal Studio Code で Markdownフ�
   - デフォルトの白い背景ではなく、透過によるスクリーンショットのキャプチャーを有効にします
   - boolean. Default: false
 
+### PlantUML options
+
+#### `markdown-pdf.plantumlOpenMarker`
+  - plantuml パーサーの開始区切り文字
+  - Default: @startuml
+
+#### `markdown-pdf.plantumlCloseMarker`
+  - plantuml パーサーの終了区切り文字
+  - Default: @enduml
+
+#### `markdown-pdf.plantumlServer`
+  - Plantuml server. e.g. http://localhost:8080
+  - Default: http://www.plantuml.com/plantuml
+  - 例えば、PlantUMLサーバをローカルで実行するには次のようにします [#139](https://github.com/yzane/vscode-markdown-pdf/issues/139) :
+    ```
+    docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
+    ```
+    [plantuml/plantuml-server - Docker Hub](https://hub.docker.com/r/plantuml/plantuml-server/)
+
+### markdown-it-include options
+
+#### `markdown-pdf.markdown-it-include.enable`
+  - markdown-it-include を有効にします
+  - boolean. Default: true
+
+### mermaid options
+
+#### `markdown-pdf.mermaidServer`
+  - mermaid server
+  - Default: https://unpkg.com/mermaid/dist/mermaid.min.js
+
 <div class="page"/>
 
 ## FAQ
@@ -524,26 +576,24 @@ Visual Studio Code の `files.autoGuessEncoding` オプションを使うと、�
 
 ## [Release Notes](CHANGELOG.md)
 
-### 1.2.0 (2018/05/03)
-* Add: Support [markdown-it-plantuml](https://github.com/gmunguia/markdown-it-plantuml)
-    * Support for lightweight diagrams (PlantUML) [#60](https://github.com/yzane/vscode-markdown-pdf/issues/60)
-
-### 1.1.0 (2018/05/03)
-* Add: Support [markdown-it-container](https://github.com/markdown-it/markdown-it-container) [#72](https://github.com/yzane/vscode-markdown-pdf/issues/72)
-
-### 1.0.5 (2018/05/03)
-* Improve: Exception handling
-* Improve: Chromium install check
-* Add: Page break
-    * Is it possible to insert page breaks? [#25](https://github.com/yzane/vscode-markdown-pdf/issues/25)
-* Update: README
-    * FAQ: Page break
-* Update: markdown-pdf.css
-    * Add: Meiryo to font-family
-
-### 1.0.4 (2018/05/01)
-* Fix: Display error message when downloading Chromium
-* Improve: Chromium install. Display download progress on status bar
+## 1.4.4 (2020/03/19)
+* Change: mermaid javascript reads from URL instead of from local file
+  * Add: `markdown-pdf.mermaidServer` option
+  * add an option to disable mermaid [#175](https://github.com/yzane/vscode-markdown-pdf/issues/175)
+* Add: `markdown-pdf.plantumlServer` option
+  * support configuration of plantUML server [#139](https://github.com/yzane/vscode-markdown-pdf/issues/139)
+* Add: configuration scope
+  * extend setting 'headerTemplate' with scope\.\.\. [#184](https://github.com/yzane/vscode-markdown-pdf/pull/184)
+* Update: [slug](https://github.com/yzane/vscode-markdown-pdf/commit/3f4aeaa724999c46fc37423d4b188fd7ce72ffce) for markdown-it-named-headers
+* Update: markdown.css, markdown-pdf.css
+* Update: dependent packages
+* Fix: Fix for issue \#186 [#187](https://github.com/yzane/vscode-markdown-pdf/pull/187)
+* Fix: move the Meiryo font to the end of the font-family setting
+  * Meiryo font causing \\ to show as Â¥ [#83](https://github.com/yzane/vscode-markdown-pdf/issues/83)
+  * Backslash false encoded [#124](https://github.com/yzane/vscode-markdown-pdf/issues/124)
+  * Errors in which í•œê¸€\(korean word\) is not properly printed [#148](https://github.com/yzane/vscode-markdown-pdf/issues/148)
+* Fix: Improve the configuration schema of package.json
+    * Some settings can now be set from the settings editor.
 
 
 ## License
@@ -563,6 +613,9 @@ MIT
 * [janl/mustache.js](https://github.com/janl/mustache.js)
 * [markdown-it/markdown-it-container](https://github.com/markdown-it/markdown-it-container)
 * [gmunguia/markdown-it-plantuml](https://github.com/gmunguia/markdown-it-plantuml)
+* [camelaissani/markdown-it-include](https://github.com/camelaissani/markdown-it-include)
+* [mermaid-js/mermaid](https://github.com/mermaid-js/mermaid)
+* [jonschlinkert/gray-matter](https://github.com/jonschlinkert/gray-matter)
 
 and
 

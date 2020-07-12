@@ -5,16 +5,17 @@
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
 body {
-	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
-	font-size: 14px;
-	padding: 0 12px;
-	line-height: 22px;
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
 	word-wrap: break-word;
 }
 
@@ -38,7 +39,6 @@ body {
 	background-color:#007acc;
 	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
 }
-
 
 body.scrollBeyondLastLine {
 	margin-bottom: calc(100vh - 22px);
@@ -71,12 +71,20 @@ body.showEditorSelection li.code-line:hover:before {
 	border-left: 3px solid rgba(0, 0, 0, 0.40);
 }
 
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
 .vscode-dark.showEditorSelection .code-active-line:before {
 	border-left: 3px solid rgba(255, 255, 255, 0.4);
 }
 
 .vscode-dark.showEditorSelection .code-line:hover:before {
 	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
 }
 
 .vscode-high-contrast.showEditorSelection .code-active-line:before {
@@ -87,14 +95,21 @@ body.showEditorSelection li.code-line:hover:before {
 	border-left: 3px solid rgba(255, 160, 0, 1);
 }
 
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
 img {
 	max-width: 100%;
 	max-height: 100%;
 }
 
 a {
-	color: #4080D0;
 	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 a:focus,
@@ -122,21 +137,6 @@ h1, h2, h3 {
 	font-weight: normal;
 }
 
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code {
-	font-size: inherit;
-	line-height: auto;
-}
-
-a:hover {
-	color: #4080D0;
-	text-decoration: underline;
-}
-
 table {
 	border-collapse: collapse;
 }
@@ -160,22 +160,18 @@ table > tbody > tr + tr > td {
 blockquote {
 	margin: 0 7px 0 5px;
 	padding: 0 16px 0 10px;
-	border-left: 5px solid;
+	border-left-width: 5px;
+	border-left-style: solid;
 }
 
 code {
 	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-	font-size: 14px;
-	line-height: 19px;
+	font-size: 1em;
+	line-height: 1.357em;
 }
 
 body.wordWrap pre {
 	white-space: pre-wrap;
-}
-
-.mac code {
-	font-size: 12px;
-	line-height: 18px;
 }
 
 pre:not(.hljs),
@@ -185,43 +181,22 @@ pre.hljs code > div {
 	overflow: auto;
 }
 
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
 /** Theming */
 
-.vscode-light,
-.vscode-light pre code {
-	color: rgb(30, 30, 30);
-}
-
-.vscode-dark,
-.vscode-dark pre code {
-	color: #DDD;
-}
-
-.vscode-high-contrast,
-.vscode-high-contrast pre code {
-	color: white;
-}
-
-.vscode-light code {
-	color: #A31515;
-}
-
-.vscode-dark code {
-	color: #D7BA7D;
-}
-
-.vscode-light pre:not(.hljs),
-.vscode-light code > div {
+.vscode-light pre {
 	background-color: rgba(220, 220, 220, 0.4);
 }
 
-.vscode-dark pre:not(.hljs),
-.vscode-dark code > div {
+.vscode-dark pre {
 	background-color: rgba(10, 10, 10, 0.4);
 }
 
-.vscode-high-contrast pre:not(.hljs),
-.vscode-high-contrast code > div {
+.vscode-high-contrast pre {
 	background-color: rgb(0, 0, 0);
 }
 
@@ -249,16 +224,6 @@ pre.hljs code > div {
 	border-color: rgba(255, 255, 255, 0.18);
 }
 
-.vscode-light blockquote,
-.vscode-dark blockquote {
-	background: rgba(127, 127, 127, 0.1);
-	border-color: rgba(0, 122, 204, 0.5);
-}
-
-.vscode-high-contrast blockquote {
-	background: transparent;
-	border-color: #fff;
-}
 </style>
 
 <style>
@@ -343,7 +308,8 @@ pre.hljs code > div {
  */
 
  body {
-	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
 }
 
 pre {
@@ -369,6 +335,11 @@ blockquote {
 	height: 1.4em;
 }
 
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
 /* for inline code */
 :not(pre):not(.hljs) > code {
 	color: #C9AE75; /* Change the old color so it seems less like an error */
@@ -383,16 +354,20 @@ blockquote {
 
 </style>
 
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 </head>
 <body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
 <h1 id="markdown-pdf">Markdown PDF</h1>
-<p>This extension convert Markdown file to pdf, html, png or jpeg file.</p>
-<p><a href="README.ja.md">Japanease README</a></p>
-<h2 id="font-colorred-important-notices-font"><font color="red"> Important Notices </font></h2>
-<ul>
-<li>Markdown PDF ver1.0.0 replaced PDF converter with <a href="https://github.com/GoogleChrome/puppeteer">puppeteer</a> (Chromium) instead of <a href="https://github.com/marcbachmann/node-html-pdf">node-html-pdf</a> (PhantomJS)</li>
-<li>Some options are obsolete, please change. See <a href="#options">Options</a></li>
-</ul>
+<p>This extension converts Markdown files to pdf, html, png or jpeg files.</p>
+<p><a href="README.ja.md">Japanese README</a></p>
 <h2 id="table-of-contents">Table of Contents</h2>
 <!-- TOC depthFrom:2 depthTo:2 updateOnSave:false -->
 <ul>
@@ -413,14 +388,16 @@ blockquote {
 <p>Supports the following features</p>
 <ul>
 <li><a href="https://highlightjs.org/static/demo/">Syntax highlighting</a></li>
-<li><a href="http://www.webpagefx.com/tools/emoji-cheat-sheet/">emoji</a></li>
+<li><a href="https://www.webfx.com/tools/emoji-cheat-sheet/">emoji</a></li>
 <li><a href="https://github.com/mcecot/markdown-it-checkbox">markdown-it-checkbox</a></li>
 <li><a href="https://github.com/markdown-it/markdown-it-container">markdown-it-container</a></li>
-<li><a href="http://plantuml.com/">PlantUML</a>
+<li><a href="https://github.com/camelaissani/markdown-it-include">markdown-it-include</a></li>
+<li><a href="https://plantuml.com/">PlantUML</a>
 <ul>
 <li><a href="https://github.com/gmunguia/markdown-it-plantuml">markdown-it-plantuml</a></li>
 </ul>
 </li>
+<li><a href="https://mermaid-js.github.io/mermaid/">mermaid</a></li>
 </ul>
 <p>Sample files</p>
 <ul>
@@ -449,8 +426,43 @@ Alice -[#0000FF]-&gt;Bob : ok
 </div></code></pre>
 <p>OUTPUT</p>
 <p><img src="images/PlantUML.png" alt="PlantUML"></p>
+<h3 id="markdown-it-include">markdown-it-include</h3>
+<p>Include markdown fragment files: <code>:[alternate-text](relative-path-to-file.md)</code>.</p>
+<pre class="hljs"><code><div>├── [plugins]
+│  └── README.md
+├── CHANGELOG.md
+└── README.md
+</div></code></pre>
+<p>INPUT</p>
+<pre class="hljs"><code><div>README Content
+
+:[Plugins](./plugins/README.md)
+
+:[Changelog](CHANGELOG.md)
+</div></code></pre>
+<p>OUTPUT</p>
+<pre class="hljs"><code><div>Content of README.md
+
+Content of plugins/README.md
+
+Content of CHANGELOG.md
+</div></code></pre>
+<h3 id="mermaid">mermaid</h3>
+<p>INPUT</p>
+<pre>
+```mermaid
+stateDiagram
+    [*] --> First
+    state First {
+        [*] --> second
+        second --> [*]
+    }
+```
+</pre>
+<p>OUTPUT</p>
+<p><img src="images/mermaid.png" alt="mermaid"></p>
 <h2 id="install">Install</h2>
-<p>Chromium download starts automatically when Markdown PDF is installed and Markdown file is first opened with Visutal Studio Code.</p>
+<p>Chromium download starts automatically when Markdown PDF is installed and Markdown file is first opened with Visual Studio Code.</p>
 <p>However, it is time-consuming depending on the environment because of its large size (~ 170Mb Mac, ~ 282Mb Linux, ~ 280Mb Win).</p>
 <p>During downloading, the message <code>Installing Chromium</code> is displayed in the status bar.</p>
 <p>If you are behind a proxy, set the <code>http.proxy</code> option to settings.json and restart Visual Studio Code.</p>
@@ -505,245 +517,205 @@ Alice -[#0000FF]-&gt;Bob : ok
 </ol>
 <p><img src="images/settings.gif" alt="demo"></p>
 <h2 id="options">Options</h2>
-<ul>
-<li>Markdown PDF ver1.0.0 replaced PDF converter with <a href="https://github.com/GoogleChrome/puppeteer">puppeteer</a> instead of <a href="https://github.com/marcbachmann/node-html-pdf">node-html-pdf</a>.</li>
-<li>Some options are obsolete, please change</li>
-<li>The new option of Markdown PDF ver1.0.0 and the obsolete options are as follows</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">ver1.0.0 (new)</th>
-<th style="text-align:left">ver0.x.x (obsolete)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.executablePath</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.scale</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.displayHeaderFooter</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.headerTemplate</code></td>
-<td style="text-align:left"><code>markdown-pdf.header.contents</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.footerTemplate</code></td>
-<td style="text-align:left"><code>markdown-pdf.footer.contents</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.printBackground</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.pageRanges</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.width</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.height</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.margin.top</code></td>
-<td style="text-align:left"><code>markdown-pdf.border.top</code></td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code>markdown-pdf.header.height</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.margin.bottom</code></td>
-<td style="text-align:left"><code>markdown-pdf.border.bottom</code></td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code>markdown-pdf.footer.height</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.margin.right</code></td>
-<td style="text-align:left"><code>markdown-pdf.border.right</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.margin.left</code></td>
-<td style="text-align:left"><code>markdown-pdf.border.left</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.quality</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.clip.x</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.clip.y</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.clip.width</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.clip.height</code></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>markdown-pdf.omitBackground</code></td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<h3 id="option-list">Option list</h3>
+<h3 id="list">List</h3>
 <table>
 <thead>
 <tr>
 <th style="text-align:left">Category</th>
 <th style="text-align:left">Option name</th>
+<th style="text-align:left"><a href="https://code.visualstudio.com/api/references/contribution-points#Configuration-property-schema">Configuration scope</a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><a href="#save-options">Save options</a></td>
 <td style="text-align:left"><a href="#markdown-pdftype">markdown-pdf.type</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfconvertonsave">markdown-pdf.convertOnSave</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfconvertonsaveexclude">markdown-pdf.convertOnSaveExclude</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfoutputdirectory">markdown-pdf.outputDirectory</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfoutputdirectoryrelativepathfile">markdown-pdf.outputDirectoryRelativePathFile</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#styles-options">Styles options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfstyles">markdown-pdf.styles</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfstylesrelativepathfile">markdown-pdf.stylesRelativePathFile</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfincludedefaultstyles">markdown-pdf.includeDefaultStyles</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#syntax-highlight-options">Syntax highlight options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfhighlight">markdown-pdf.highlight</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfhighlightstyle">markdown-pdf.highlightStyle</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#markdown-options">Markdown options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfbreaks">markdown-pdf.breaks</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#emoji-options">Emoji options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfemoji">markdown-pdf.emoji</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#configuration-options">Configuration options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfexecutablepath">markdown-pdf.executablePath</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#common-options">Common Options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfscale">markdown-pdf.scale</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#pdf-options">PDF options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfdisplayheaderfooter">markdown-pdf.displayHeaderFooter</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfheadertemplate">markdown-pdf.headerTemplate</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdffootertemplate">markdown-pdf.footerTemplate</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfprintbackground">markdown-pdf.printBackground</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdforientation">markdown-pdf.orientation</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfpageranges">markdown-pdf.pageRanges</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfformat">markdown-pdf.format</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfwidth">markdown-pdf.width</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfheight">markdown-pdf.height</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfmargintop">markdown-pdf.margin.top</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfmarginbottom">markdown-pdf.margin.bottom</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfmarginright">markdown-pdf.margin.right</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfmarginleft">markdown-pdf.margin.left</a></td>
+<td style="text-align:left">resource</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#png-jpeg-options">PNG JPEG options</a></td>
 <td style="text-align:left"><a href="#markdown-pdfquality">markdown-pdf.quality</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfclipx">markdown-pdf.clip.x</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfclipy">markdown-pdf.clip.y</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfclipwidth">markdown-pdf.clip.width</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfclipheight">markdown-pdf.clip.height</a></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left"></td>
 <td style="text-align:left"><a href="#markdown-pdfomitbackground">markdown-pdf.omitBackground</a></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#plantuml-options">PlantUML options</a></td>
+<td style="text-align:left"><a href="#markdown-pdfplantumlopenmarker">markdown-pdf.plantumlOpenMarker</a></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><a href="#markdown-pdfplantumlclosemarker">markdown-pdf.plantumlCloseMarker</a></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><a href="#markdown-pdfplantumlserver">markdown-pdf.plantumlServer</a></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#markdown-it-include-options">markdown-it-include options</a></td>
+<td style="text-align:left"><a href="#markdown-pdfmarkdown-it-includeenable">markdown-pdf.markdown-it-include.enable</a></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#mermaid-options">mermaid options</a></td>
+<td style="text-align:left"><a href="#markdown-pdfmermaidserver">markdown-pdf.mermaidServer</a></td>
+<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
@@ -1026,6 +998,37 @@ Alice -[#0000FF]-&gt;Bob : ok
 <li>Hides default white background and allows capturing screenshots with transparency</li>
 <li>boolean. Default: false</li>
 </ul>
+<h3 id="plantuml-options">PlantUML options</h3>
+<h4 id="markdown-pdfplantumlopenmarker"><code>markdown-pdf.plantumlOpenMarker</code></h4>
+<ul>
+<li>Oppening delimiter used for the plantuml parser.</li>
+<li>Default: @startuml</li>
+</ul>
+<h4 id="markdown-pdfplantumlclosemarker"><code>markdown-pdf.plantumlCloseMarker</code></h4>
+<ul>
+<li>Closing delimiter used for the plantuml parser.</li>
+<li>Default: @enduml</li>
+</ul>
+<h4 id="markdown-pdfplantumlserver"><code>markdown-pdf.plantumlServer</code></h4>
+<ul>
+<li>Plantuml server. e.g. http://localhost:8080</li>
+<li>Default: http://www.plantuml.com/plantuml</li>
+<li>For example, to run Plantuml Server locally <a href="https://github.com/yzane/vscode-markdown-pdf/issues/139">#139</a> :<pre class="hljs"><code><div>docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
+</div></code></pre>
+<a href="https://hub.docker.com/r/plantuml/plantuml-server/">plantuml/plantuml-server - Docker Hub</a></li>
+</ul>
+<h3 id="markdown-it-include-options">markdown-it-include options</h3>
+<h4 id="markdown-pdfmarkdown-it-includeenable"><code>markdown-pdf.markdown-it-include.enable</code></h4>
+<ul>
+<li>Enable markdown-it-include.</li>
+<li>boolean. Default: true</li>
+</ul>
+<h3 id="mermaid-options">mermaid options</h3>
+<h4 id="markdown-pdfmermaidserver"><code>markdown-pdf.mermaidServer</code></h4>
+<ul>
+<li>mermaid server</li>
+<li>Default: https://unpkg.com/mermaid/dist/mermaid.min.js</li>
+</ul>
 <div class="page"/>
 <h2 id="faq">FAQ</h2>
 <h3 id="how-can-i-change-emoji-size">How can I change emoji size ?</h3>
@@ -1057,42 +1060,40 @@ Alice -[#0000FF]-&gt;Bob : ok
 <li>Online CSS (https://xxx/xxx.css) is applied correctly for JPG and PNG, but problems occur with PDF. <a href="https://github.com/yzane/vscode-markdown-pdf/issues/67">#67</a></li>
 </ul>
 <h2 id="release-notes"><a href="CHANGELOG.md">Release Notes</a></h2>
-<h3 id="120-20180503">1.2.0 (2018/05/03)</h3>
+<h3 id="144-20200319">1.4.4 (2020/03/19)</h3>
 <ul>
-<li>Add: Support <a href="https://github.com/gmunguia/markdown-it-plantuml">markdown-it-plantuml</a>
+<li>Change: mermaid javascript reads from URL instead of from local file
 <ul>
-<li>Support for lightweight diagrams (PlantUML) <a href="https://github.com/yzane/vscode-markdown-pdf/issues/60">#60</a></li>
+<li>Add: <code>markdown-pdf.mermaidServer</code> option</li>
+<li>add an option to disable mermaid <a href="https://github.com/yzane/vscode-markdown-pdf/issues/175">#175</a></li>
 </ul>
 </li>
-</ul>
-<h3 id="110-20180503">1.1.0 (2018/05/03)</h3>
+<li>Add: <code>markdown-pdf.plantumlServer</code> option
 <ul>
-<li>Add: Support <a href="https://github.com/markdown-it/markdown-it-container">markdown-it-container</a> <a href="https://github.com/yzane/vscode-markdown-pdf/issues/72">#72</a></li>
-</ul>
-<h3 id="105-20180503">1.0.5 (2018/05/03)</h3>
-<ul>
-<li>Improve: Exception handling</li>
-<li>Improve: Chromium install check</li>
-<li>Add: Page break
-<ul>
-<li>Is it possible to insert page breaks? <a href="https://github.com/yzane/vscode-markdown-pdf/issues/25">#25</a></li>
+<li>support configuration of plantUML server <a href="https://github.com/yzane/vscode-markdown-pdf/issues/139">#139</a></li>
 </ul>
 </li>
-<li>Update: README
+<li>Add: configuration scope
 <ul>
-<li>FAQ: Page break</li>
+<li>extend setting 'headerTemplate' with scope... <a href="https://github.com/yzane/vscode-markdown-pdf/pull/184">#184</a></li>
 </ul>
 </li>
-<li>Update: markdown-pdf.css
+<li>Update: <a href="https://github.com/yzane/vscode-markdown-pdf/commit/3f4aeaa724999c46fc37423d4b188fd7ce72ffce">slug</a> for markdown-it-named-headers</li>
+<li>Update: markdown.css, markdown-pdf.css</li>
+<li>Update: dependent packages</li>
+<li>Fix: Fix for issue #186 <a href="https://github.com/yzane/vscode-markdown-pdf/pull/187">#187</a></li>
+<li>Fix: move the Meiryo font to the end of the font-family setting
 <ul>
-<li>Add: Meiryo to font-family</li>
+<li>Meiryo font causing \ to show as Â¥ <a href="https://github.com/yzane/vscode-markdown-pdf/issues/83">#83</a></li>
+<li>Backslash false encoded <a href="https://github.com/yzane/vscode-markdown-pdf/issues/124">#124</a></li>
+<li>Errors in which í•œê¸€(korean word) is not properly printed <a href="https://github.com/yzane/vscode-markdown-pdf/issues/148">#148</a></li>
 </ul>
 </li>
-</ul>
-<h3 id="104-20180501">1.0.4 (2018/05/01)</h3>
+<li>Fix: Improve the configuration schema of package.json
 <ul>
-<li>Fix: Display error message when downloading Chromium</li>
-<li>Improve: Chromium install. Display download progress on status bar</li>
+<li>Some settings can now be set from the settings editor.</li>
+</ul>
+</li>
 </ul>
 <h2 id="license">License</h2>
 <p>MIT</p>
@@ -1109,10 +1110,12 @@ Alice -[#0000FF]-&gt;Bob : ok
 <li><a href="https://github.com/janl/mustache.js">janl/mustache.js</a></li>
 <li><a href="https://github.com/markdown-it/markdown-it-container">markdown-it/markdown-it-container</a></li>
 <li><a href="https://github.com/gmunguia/markdown-it-plantuml">gmunguia/markdown-it-plantuml</a></li>
+<li><a href="https://github.com/camelaissani/markdown-it-include">camelaissani/markdown-it-include</a></li>
+<li><a href="https://github.com/mermaid-js/mermaid">mermaid-js/mermaid</a></li>
+<li><a href="https://github.com/jonschlinkert/gray-matter">jonschlinkert/gray-matter</a></li>
 </ul>
 <p>and</p>
 <ul>
-<li><a href="https://github.com/marcbachmann/node-html-pdf">marcbachmann/node-html-pdf</a></li>
 <li><a href="https://github.com/cakebake/markdown-themeable-pdf">cakebake/markdown-themeable-pdf</a></li>
 </ul>
 

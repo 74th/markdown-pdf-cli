@@ -2,7 +2,7 @@
   "name": "markdown-pdf-cli",
   "displayName": "Markdown PDF CLI",
   "description": "Convert Markdown to PDF ( fork from VSCode extension )",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "publisher": "74th",
   "icon": "images/icon.png",
   "engines": {
@@ -17,7 +17,7 @@
     "pdf",
     "PlantUML",
     "export",
-    "html",
+    "mermaid",
     "multi-root ready"
   ],
   "repository": {
@@ -29,22 +29,28 @@
   },
   "scripts": {},
   "devDependencies": {
-    "removeNPMAbsolutePaths": "^1.0.4"
+    "glob": "^7.1.6",
+    "mocha": "^7.1.1",
+    "removeNPMAbsolutePaths": "^2.0.0",
+    "vscode-test": "^1.3.0"
   },
   "dependencies": {
     "cheerio": "^0.20.0",
+    "d3": "^4.13.0",
     "emoji-images": "^0.1.1",
-    "highlight.js": "^9.12.0",
     "js-yaml": "^3.13.1",
-    "markdown-it": "^8.4.1",
+    "gray-matter": "^4.0.2",
+    "highlight.js": "^9.18.1",
+    "markdown-it": "^10.0.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-emoji": "^1.4.0",
+    "markdown-it-include": "^1.1.0",
     "markdown-it-named-headers": "0.0.4",
-    "markdown-it-plantuml": "^1.0.0",
-    "mkdirp": "^0.5.1",
-    "mustache": "^2.3.0",
-    "puppeteer": "^1.3.0",
-    "rimraf": "^2.6.2"
+    "markdown-it-plantuml": "^1.4.1",
+    "mkdirp": "^1.0.3",
+    "mustache": "^4.0.1",
+    "puppeteer-core": "^2.1.1",
+    "rimraf": "^3.0.2"
   }
 }
