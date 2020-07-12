@@ -675,7 +675,7 @@ function readStyles(uri) {
       if (styles && Array.isArray(styles) && styles.length > 0) {
         for (i = 0; i < styles.length; i++) {
           var href = fixHref(uri, styles[i]);
-          style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\">';
+          style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\" />';
         }
       }
     }
@@ -705,7 +705,7 @@ function readStyles(uri) {
     if (styles && Array.isArray(styles) && styles.length > 0) {
       for (i = 0; i < styles.length; i++) {
         var href = fixHref(uri, styles[i]);
-        style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\">';
+        style += '<link rel=\"stylesheet\" href=\"' + href + '\" type=\"text/css\" />';
       }
     }
 
